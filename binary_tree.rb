@@ -35,6 +35,9 @@ class Tree
     end
     @data << value unless @data[-1] == value
   end
+
+  def delete value
+  end
 end
 a = Tree.new
 p a.build_tree [4, 7, 6]
