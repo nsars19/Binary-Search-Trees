@@ -11,4 +11,8 @@ class Node
   def <=> node 
     self.value <=> node.value
   end
+
+  def == other
+    self == other
+  end
 end
