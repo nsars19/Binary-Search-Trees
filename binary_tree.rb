@@ -49,7 +49,7 @@ class Tree
       value < node.value ? node = node.left_child : node = node.right_child
       return nil if node.nil?
     end
-    node if node
+    node
   end
 end
 # a = Tree.new
