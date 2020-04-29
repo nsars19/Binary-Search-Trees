@@ -36,10 +36,23 @@ class Tree
     @data << value unless @data[-1] == value
   end
 
-  def delete value
+  def delete value, node = @root
+    # Case 1 - no children
+    
+    # Case 2 - one child
+
+    # Case 3 - two children
+  end
+
+  def find value, node = @root
+    until node.value == value
+      value < node.value ? node = node.left_child : node = node.right_child
+      return nil if node.nil?
+    end
+    node if node
   end
 end
-a = Tree.new
-p a.build_tree [4, 7, 6]
+# a = Tree.new
+# p a.build_tree [4, 7, 6]
 # p Tree.new.build_tree [4, 7, 6, 2, 1, 3, 5]
 # p Tree.new.build_tree [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
