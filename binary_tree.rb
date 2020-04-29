@@ -31,7 +31,7 @@ class Tree
     if (value < node.value) # Move left
       node.left_child.nil? ? node.left_child = Node.new(value) : insert(value, node.left_child)
     elsif (value > node.value) # Move right
-        node.right_child.nil? ? node.right_child = Node.new(value) : insert(value, node.right_child)
+      node.right_child.nil? ? node.right_child = Node.new(value) : insert(value, node.right_child)
     end
     @data << value unless @data[-1] == value
   end
