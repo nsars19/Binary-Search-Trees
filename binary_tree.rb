@@ -103,6 +103,15 @@ class Tree
     end
     block_given? ? nil : values
   end
+
+  def level_order_rec node = @root, values = [], &block
+    return if node.nil?
+    yield(node) if block_given?
+    values << node.value
+    level_order_rec(node.left, values, &block)
+    level_order_rec(node.right, values, &block)
+    block_given? ? nil : values
+  end
 end
 # a = Tree.new
 # p a.build_tree [4, 7, 6]
