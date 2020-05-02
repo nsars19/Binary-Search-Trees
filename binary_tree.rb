@@ -112,6 +112,33 @@ class Tree
     level_order_rec(node.right, values, &block)
     block_given? ? nil : values
   end
+
+  def inorder node = @root, values = [], &block
+    return if node.nil?
+    inorder(node.left, values, &block)
+    yield(node) if block_given?
+    values << node.value
+    inorder(node.right, values, &block)
+    block_given? ? nil : values
+  end
+
+  def preorder node = @root, values = [], &block
+    return if node.nil?
+    yield(node) if block_given?
+    values << node.value
+    preorder(node.left, values, &block)
+    preorder(node.right, values, &block)
+    block_given? ? nil : values
+  end
+
+  def postorder node = @root, values = [], &block
+    return if node.nil?
+    postorder(node.left, values, &block)
+    postorder(node.right, values, &block)
+    yield(node) if block_given?
+    values << node.value
+    block_given? ? nil : values
+  end
 end
 # a = Tree.new
 # p a.build_tree [4, 7, 6]
