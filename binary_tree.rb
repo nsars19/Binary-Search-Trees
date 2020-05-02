@@ -88,6 +88,21 @@ class Tree
     end
     node
   end
+
+  def level_order node = @root
+    queue = []
+    values = []
+    
+    queue << node
+    until queue.empty?
+      current = queue.shift
+      yield(current) if block_given?
+      queue << current.left  unless current.left.nil?
+      queue << current.right unless current.right.nil?
+      values << current.value
+    end
+    block_given? ? nil : values
+  end
 end
 # a = Tree.new
 # p a.build_tree [4, 7, 6]
