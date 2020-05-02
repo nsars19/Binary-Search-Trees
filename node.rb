@@ -9,6 +9,10 @@ class Node
     @parent = parent
   end
 
+  def is_leaf?
+    self.left.nil? && self.right.nil?
+  end
+  
   def <=> node 
     self.value <=> node.value
   end
