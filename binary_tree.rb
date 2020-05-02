@@ -44,7 +44,7 @@ class Tree
     parent = node.parent
 
     # no children
-    if node.left.nil? && node.right.nil?
+    if node.is_leaf?
       parent.left  == node ? parent.left = nil : parent.right = nil
       node.parent = nil
       return root
@@ -77,9 +77,8 @@ class Tree
         return root
       end
       # case where replacement node has no children
-      replacement.right.parent = replacement.parent unless replacement.right.nil?
-      replacement.right.nil? ? replacement.parent.left = nil : replacement.parent.left = replacement.right
-
+      replacement.right.parent = replacement.parent unless replacement.is_leaf?
+      replacement.is_leaf? ? replacement.parent.left = nil : replacement.parent.left = replacement.right
       # change replacement's children & parent nodes to node's children and parent nodes
       # accounts for the case of the replacement being a child of the removed node
       replacement.right  = node.right
