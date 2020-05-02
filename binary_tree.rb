@@ -38,15 +38,14 @@ class Tree
     @data << value unless @data[-1] == value
   end
 
-  def delete value
+  def delete value, node = @root
     node = find(value)
     return nil if node.nil?
     parent = node.parent
 
     # no children
     if node.is_leaf?
-      parent.left  == node ? parent.left = nil : parent.right = nil
-      node.parent = nil
+      parent.left == node ? parent.left = nil : parent.right = nil
       return root
     end
     # one child
@@ -64,32 +63,20 @@ class Tree
       # in-order successor --- right child's left most child
       replacement = node.right
       replacement = replacement.left while replacement.left
-      # covers case where the in-order successor     eg. delete 50;  50
-      # is a child of the node to be deleted                           \
-      #                                    successor has no children -  70
-      if replacement == node.right
-        replacement.parent = node.parent
-        replacement.left   = node.left
-        node.left.parent   = replacement
-        node.parent.left   = replacement if node.parent.left  == node
-        node.parent.right  = replacement if node.parent.right == node
-        node.left, node.right, node.parent = nil, nil, nil
-        return root
-      end
-      # case where replacement node has no children
-      replacement.right.parent = replacement.parent unless replacement.is_leaf?
-      replacement.is_leaf? ? replacement.parent.left = nil : replacement.parent.left = replacement.right
-      # change replacement's children & parent nodes to node's children and parent nodes
-      # accounts for the case of the replacement being a child of the removed node
+      # delete replacement node from it's current position, and point any
+      # existing children to replacement's parent by passing it into #delete
+      delete(replacement.value, replacement)
+      # change replacement's children & parent node pointers to node's children and parent nodes
       replacement.right  = node.right
       replacement.left   = node.left
       replacement.parent = node.parent
       # change node's children to point to replacement as a parent
-      node.left.parent  = replacement
-      node.right.parent = replacement 
+      node.left.parent  = replacement if node.left
+      node.right.parent = replacement if node.right
       # change node's parent to point to replacement
       node.parent.left  = replacement if node.parent.left  == node
       node.parent.right = replacement if node.parent.right == node
+      node.value, node.parent, node.left, node.right = nil, nil, nil, nil
     end   
     root
   end
