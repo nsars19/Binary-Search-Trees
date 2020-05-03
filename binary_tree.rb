@@ -5,7 +5,6 @@ class Tree
 
   def initialize data = []
     @root = build_tree data
-    @data = data
   end
 
   def build_tree data_set = []
@@ -35,7 +34,6 @@ class Tree
     elsif (value > node.value) # Move right
       node.right.nil? ? node.right = Node.new(value, node) : insert(value, node.right)
     end
-    @data << value unless @data[-1] == value
   end
 
   def delete value, node = @root
