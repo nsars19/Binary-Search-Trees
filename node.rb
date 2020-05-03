@@ -13,6 +13,10 @@ class Node
     self.left.nil? && self.right.nil?
   end
 
+  def has_children?
+    self.left || self.right
+  end
+  
   def has_two_children?
     (self.left && self.right) ? true : false
   end
