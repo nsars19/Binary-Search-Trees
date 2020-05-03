@@ -12,6 +12,10 @@ class Node
   def is_leaf?
     self.left.nil? && self.right.nil?
   end
+
+  def has_two_children?
+    self.left && self.right
+  end
   
   def <=> node 
     self.value <=> node.value
