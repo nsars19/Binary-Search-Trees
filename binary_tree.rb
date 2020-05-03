@@ -153,7 +153,7 @@ class Tree
   end
 
   def depth node_value
-    return 0 if node_value.nil?
+    return -1 if node_value.nil?
     node = node_value.is_a?(Node) ? node_value : find(node_value)
     
     left_child  = depth(node.left)
