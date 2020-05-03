@@ -166,6 +166,9 @@ class Tree
     right = depth node.right
     (left - right).abs > 1 ? false : true
   end
+
+  def rebalance!
+  end
 end
 # a = Tree.new
 # p a.build_tree [4, 7, 6]
