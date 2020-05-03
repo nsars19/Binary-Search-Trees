@@ -39,10 +39,22 @@ class Tree
   end
 
   def delete value, node = @root
-    node = find(value)
+    node = value.is_a?(Node) ? value : find(value)
     return nil if node.nil?
     parent = node.parent
-
+    # delete root node
+    if node == root
+      replacement = node.right
+      replacement = replacement.left while replacement.left
+      delete(replacement) if replacement.has_children?
+      node.left.parent  = replacement if node.left
+      node.right.parent = replacement if node.right
+      replacement.left  = node.left
+      replacement.right = node.right
+      replacement.parent = nil
+      @root = replacement
+      return root
+    end
     # no children
     if node.is_leaf?
       parent.left == node ? parent.left = nil : parent.right = nil
@@ -59,7 +71,7 @@ class Tree
       return root
     end
     # two children
-    if node.left && node.right
+    if node.has_two_children?
       # in-order successor --- right child's left most child
       replacement = node.right
       replacement = replacement.left while replacement.left
@@ -147,6 +159,13 @@ class Tree
     left_child  = depth(node.left)
     right_child = depth(node.right)
     left_child <= right_child ? right_child + 1 : left_child + 1
+  end
+
+  def balanced? node = @root
+    left = depth node.left
+    right = depth node.right
+    p left; p right
+    (left - right).abs > 1 ? false : true
   end
 end
 # a = Tree.new
