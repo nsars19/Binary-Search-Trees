@@ -46,7 +46,7 @@ class Tree
     if node == root
       replacement = node.right
       replacement = replacement.left while replacement.left
-      delete(replacement) if replacement.has_children?
+      delete(replacement)
       node.left.parent  = replacement if node.left
       node.right.parent = replacement if node.right
       replacement.left  = node.left
@@ -164,7 +164,6 @@ class Tree
   def balanced? node = @root
     left = depth node.left
     right = depth node.right
-    p left; p right
     (left - right).abs > 1 ? false : true
   end
 end
