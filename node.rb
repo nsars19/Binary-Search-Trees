@@ -14,7 +14,11 @@ class Node
   end
 
   def has_two_children?
-    self.left && self.right
+    (self.left && self.right) ? true : false
+  end
+
+  def has_one_child?
+    (self.left.nil? || self.right.nil?) && !self.is_leaf?
   end
   
   def <=> node 
