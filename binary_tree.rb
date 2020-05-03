@@ -22,7 +22,7 @@ class Tree
           node.left.parent = node if node.left == item
         when 1 # Move right
           node.right.nil? ? node.right = item : node = node.right
-          node.right.parent = node  if node.right == item
+          node.right.parent = node if node.right == item
         end
       end
     end
@@ -138,6 +138,15 @@ class Tree
     yield(node) if block_given?
     values << node.value
     block_given? ? nil : values
+  end
+
+  def depth node_value
+    return 0 if node_value.nil?
+    node = node_value.is_a?(Node) ? node_value : find(node_value)
+    
+    left_child  = depth(node.left)
+    right_child = depth(node.right)
+    left_child <= right_child ? right_child + 1 : left_child + 1
   end
 end
 # a = Tree.new
