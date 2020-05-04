@@ -185,7 +185,7 @@ class Tree
 
   def rebalance! arr = [], new_tree_values = []
     values = arr.empty? ? self.inorder : arr
-    return values.each { |e| new_tree_values << e } if values.size == 2
+    return values.each { |e| new_tree_values << e } if values.size <= 2
     middle = values.size/2
     left = values[0..(middle - 1)]
     right = values.size == 2 ? values[1..-1] : values[(middle + 1)..-1]
