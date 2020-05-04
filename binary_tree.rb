@@ -195,7 +195,3 @@ class Tree
     @root = build_tree new_tree_values
   end
 end
-# a = Tree.new
-# p a.build_tree [4, 7, 6]
-# p Tree.new.build_tree [4, 7, 6, 2, 1, 3, 5]
-# p Tree.new.build_tree [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
