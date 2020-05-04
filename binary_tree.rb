@@ -168,6 +168,26 @@ class Tree
     block_given? ? nil : values
   end
 
+  # this creates the above three methods
+  ["pre", "in", "post"].each do |prefix|
+    define_method("#{prefix}order") do |node=@root, values=[], &block|
+      return if node.nil?
+      if prefix == "post"
+        postorder(node.left, values, &block)
+        postorder(node.right, values, &block)
+      end
+      inorder(node.left, values, &block) if prefix == "in"
+      block.call(node) if block
+      values << node.value
+      inorder(node.right, values, &block) if prefix == "in"
+      if prefix == "pre"
+        preorder(node.left, values, &block)
+        preorder(node.right, values, &block)
+      end
+      block ? nil : values
+    end
+  end
+
   def depth node_value
     return -1 if node_value.nil?
     node = node_value.is_a?(Node) ? node_value : find(node_value)
