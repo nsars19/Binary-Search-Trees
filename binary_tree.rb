@@ -183,10 +183,16 @@ class Tree
     (left - right).abs > 1 ? false : true
   end
 
-  def rebalance!
-    tree_values = self.level_order
-    build_tree(tree_values)
-    
+  def rebalance! arr = [], new_tree_values = []
+    values = arr.empty? ? self.inorder : arr
+    return values.each { |e| new_tree_values << e } if values.size == 2
+    middle = values.size/2
+    left = values[0..(middle - 1)]
+    right = values.size == 2 ? values[1..-1] : values[(middle + 1)..-1]
+    new_tree_values << values[middle]
+    rebalance! left, new_tree_values
+    rebalance! right, new_tree_values
+    @root = build_tree new_tree_values
   end
 end
 # a = Tree.new
